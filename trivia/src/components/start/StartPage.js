@@ -1,12 +1,13 @@
 import React from "react"
 import Modal from "./Modal"
 import axios from "axios"
+import { StartCont, Button, ButtonStart } from "./styled-components-start"
 
 
 
 class StartPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             api: ``,
             open: false,// Modal
@@ -34,19 +35,27 @@ class StartPage extends React.Component {
         this.setState({ api: `https://opentdb.com/api.php?amount=${this.state.questions}&category=${this.state.category}&difficulty=${this.state.difficulty}&type=multiple` })
         setTimeout(() => {
             axios.get(this.state.api).then(res => this.setState({ data: res.data.results }))
+
         }, 200);
+        setTimeout(() => {
+            this.props.history.push({
+                pathname: `${this.props.match.path}questions`,
+                state: { data: this.state.data }
+            })
+        }, 1000);
+
     }
 
 
     render() {
         return (
-            <div>
-                <button name="category" onClick={this.handleOpen}> Category</button><br />
-                <button name="questions" onClick={this.handleOpen}> Questions</button><br />
-                <button name="difficulty" onClick={this.handleOpen}> Difficulty</button><br />
-                <button onClick={this.startGame}> Start game</button>
+            <StartCont>
+                <Button name="category" onClick={this.handleOpen}> Category</Button><br />
+                <Button name="questions" onClick={this.handleOpen}> Questions</Button><br />
+                <Button name="difficulty" onClick={this.handleOpen}> Difficulty</Button><br />
+                <ButtonStart onClick={this.startGame}> Start game</ButtonStart>
                 <Modal handleClose={this.handleClose} handleChoice={this.handleChoice} open={this.state.open} choice={this.state.choice} />
-            </div>
+            </StartCont>
         )
     }
 }

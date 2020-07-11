@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { UL, ModalContainer } from "./styled-components-start"
 
 //opens the category modal from the switch statement
 function Category(props) {
     const categoriesArray = [
-        { title: "All", id: 0 },
         { title: "Books", id: 10 },
         { title: "Movies", id: 11 },
         { title: "Music", id: 12 },
@@ -18,27 +18,27 @@ function Category(props) {
         { title: "Art", id: 25 }
     ]
     return (
-        <div>
+        <ModalContainer>
             <h2 id="transition-modal-title">Category</h2>
-            <ul id="transition-modal-description">
+            <UL id="transition-modal-description">
                 {
                     categoriesArray.map((el, index) => <li key={index} value={el.id} name="category" onClick={props.handleChoice}>{el.title}</li>)
                 }
-            </ul>
-        </div>
+            </UL>
+        </ ModalContainer>
     )
 }
 function Difficulty(props) {
     const difficultyArray = ["Easy", "Medium", "Hard"]
     return (
-        <div>
+        <ModalContainer>
             <h2 id="transition-modal-title">Category</h2>
-            <ul id="transition-modal-description">
+            <UL id="transition-modal-description">
                 {
                     difficultyArray.map((el, index) => <li key={index} value={el.toLowerCase()} name="difficulty" onClick={props.handleChoice}>{el}</li>)
                 }
-            </ul>
-        </div>
+            </UL>
+        </ ModalContainer>
     )
 }
 
@@ -46,14 +46,14 @@ function Difficulty(props) {
 function Questions(props) {
     const questionsArray = [10, 20, 30, 40, 50]
     return (
-        <div>
+        <ModalContainer>
             <h2 id="transition-modal-title">Questions</h2>
-            <ul id="transition-modal-description">
+            <UL id="transition-modal-description">
                 {
                     questionsArray.map((el, index) => <li key={index} id={index} value={el} name="questions" onClick={props.handleChoice}>{el}</li>)
                 }
-            </ul>
-        </div>
+            </UL>
+        </ModalContainer>
     )
 }
 
@@ -62,12 +62,17 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+
     },
     paper: {
+        outline: "none",
+        textAlign: "center",
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        width: "80vw",
+        height: "80vh",
+        borderRadius: "10%"
     },
 }));
 
