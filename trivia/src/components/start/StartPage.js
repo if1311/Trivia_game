@@ -15,9 +15,12 @@ class StartPage extends React.Component {
             category: 9,
             questions: 10,
             difficulty: "medium",
-            data: []
+            data: [],
+            points: null
+
         }
     }
+    componentDidMount = () => this.props.location.state !== undefined && this.setState({ points: this.props.location.state.points })
 
     // open and close Modal
     handleOpen = (event) => this.setState({ open: true, choice: event.target.name })
@@ -48,6 +51,7 @@ class StartPage extends React.Component {
 
 
     render() {
+        console.log(this.state.points)
         return (
             <StartCont>
                 <Button name="category" onClick={this.handleOpen}> Category</Button><br />

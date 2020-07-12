@@ -3,23 +3,40 @@ import Question from "./Question"
 
 
 
+
 class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            questionNumber: 1
+            questionNumber: 1,
+            points: 0
         }
     }
-    componentDidMount = () => this.setState({ data: this.props.location.state.data })
+    //received the state from start page component through the R.Router
+    componentDidMount = () => {
+        this.setState({ data: this.props.location.state.data })
+    }
+
     handleNext = () => this.setState(prevState => {
         return {
             ...prevState,
             questionNumber: prevState.questionNumber + 1
         }
     })
+    //it gets called from Question Component
+    incrementPoints = (num) => this.setState(prevState => {
+        return {
+            ...prevState,
+            points: prevState.points + num
+        }
+    })
+
+    //link with the router so after the questions are over to render EndPage component/it gets called from the Question component
+    endPage = () => this.props.history.push(`${this.props.location.pathname}/endOfTheRoad`)
+
     render() {
-        console.log(this.state.data)
+        console.log(this.state.points)
 
         return (
             <div>
@@ -28,23 +45,21 @@ class Questions extends React.Component {
                         const propsToSend = {
                             question: el.question,
                             index: index + 1,
+                            incorrect_answers: el.incorrect_answers,
+                            correct_answer: el.correct_answer
+
                         }
-                        return (
+                        //check if there are no questions left then send as prop endPage method to active it on click button in Question component
+                        return this.state.questionNumber - this.state.data.length + 1 !== 1 ? (
                             <div key={index}>
-                                <Question {...propsToSend} handleNext={this.handleNext} questionNumber={this.state.questionNumber} />
+                                <Question {...propsToSend} handleNext={this.handleNext} questionNumber={this.state.questionNumber} incrementPoints={this.incrementPoints} />
                             </div>
-                        )
+                        ) : (<div key={index}>
+                            <Question {...propsToSend} handleNext={this.handleNext} questionNumber={this.state.questionNumber} endPage={this.endPage} incrementPoints={this.incrementPoints} />
+                        </div>)
                     })
                 }
-
-                {
-                    this.state.questionNumber === this.state.data.length + 1 && (
-                        <p>finish</p>
-                    )
-                }
-
             </div>
-
         )
     }
 }
