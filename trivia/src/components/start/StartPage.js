@@ -2,6 +2,7 @@ import React from "react"
 import Modal from "./Modal"
 import axios from "axios"
 import { StartCont, Button, ButtonStart } from "./styled-components-start"
+import Tilt from 'react-tilt'
 
 
 
@@ -20,7 +21,6 @@ class StartPage extends React.Component {
 
         }
     }
-    componentDidMount = () => this.props.location.state !== undefined && this.setState({ points: this.props.location.state.points })
 
     // open and close Modal
     handleOpen = (event) => this.setState({ open: true, choice: event.target.name })
@@ -50,16 +50,25 @@ class StartPage extends React.Component {
     }
 
 
+
     render() {
-        console.log(this.state.points)
         return (
             <StartCont>
-                <Button name="category" onClick={this.handleOpen}> Category</Button><br />
-                <Button name="questions" onClick={this.handleOpen}> Questions</Button><br />
-                <Button name="difficulty" onClick={this.handleOpen}> Difficulty</Button><br />
-                <ButtonStart onClick={this.startGame}> Start game</ButtonStart>
+                <Tilt className="Tilt" options={{ max: 5 }}  >
+                    <Button name="category" onClick={this.handleOpen}> Category</Button><br />
+                </Tilt>
+                <Tilt className="Tilt" options={{ max: 5 }}  >
+                    <Button name="questions" onClick={this.handleOpen}> Questions</Button><br />
+                </Tilt>
+                <Tilt className="Tilt" options={{ max: 5 }}  >
+                    <Button name="difficulty" onClick={this.handleOpen}> Difficulty</Button><br />
+                </Tilt>
+                <Tilt className="Tilt" options={{ max: 5 }}  >
+                    <ButtonStart onClick={this.startGame}> Start game</ButtonStart>
+                </Tilt>
                 <Modal handleClose={this.handleClose} handleChoice={this.handleChoice} open={this.state.open} choice={this.state.choice} />
             </StartCont>
+
         )
     }
 }

@@ -10,11 +10,14 @@ class Questions extends React.Component {
         this.state = {
             data: [],
             questionNumber: 1,
-            points: 0
+            points: 0,
+
         }
     }
+    _isMounted = false;
     //received the state from start page component through the R.Router
     componentDidMount = () => {
+        this._isMounted = true;
         this.setState({ data: this.props.location.state.data })
     }
 
@@ -33,11 +36,16 @@ class Questions extends React.Component {
     })
 
     //link with the router so after the questions are over to render EndPage component/it gets called from the Question component
-    endPage = () => this.props.history.push(`${this.props.location.pathname}/endOfTheRoad`)
+    endPage = () => this.props.history.push({
+        pathname: `${this.props.location.pathname}/endOfTheRoad`,
+        state: this.state.points
+    })
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
 
     render() {
-        console.log(this.state.points)
-
         return (
             <div>
                 {

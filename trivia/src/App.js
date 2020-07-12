@@ -7,7 +7,7 @@ import EndPage from "./components/end/EndPage";
 
 function App() {
   return (
-    <div >
+    <div className="app">
       <Switch>
         <Route exact path="/questions" render={(props) => <Questions {...props} />} />
         {/* <Route exact path="/questions/:index" render={(props) => <Question {...props} />} /> */}

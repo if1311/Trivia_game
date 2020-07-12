@@ -1,24 +1,18 @@
 import React from 'react'
+import { Button, StartCont, H1 } from "../start/styled-components-start"
 
 export default class EndPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            points: null
-        }
-    }
-    toStartPage = () => this.props.history.push({
-        pathname: "/",
-        state: { points: this.state.points }
-    })
+
+    toStartPage = () => this.props.history.push("/")
     render() {
-        console.log(this.props)
         return (
-            <div>
-                <h1>Finish</h1>
+            <StartCont end="" >
+                <H1>Well done!</H1>
+                <H1 score>Your Score</H1>
+                <H1>{this.props.location.state}</H1>
                 {/* <button>Play again</button> */}
-                <button onClick={this.toStartPage}>New game</button>
-            </div>
+                <Button ok onClick={this.toStartPage}>New game</Button>
+            </StartCont>
         )
     }
 }
