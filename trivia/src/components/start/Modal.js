@@ -116,7 +116,7 @@ function Results(props) {
                 </div>
                 ) : (
                     <div>
-                        <H1 id="transition-modal-title">Inccorect answer!</H1>
+                        <H1 id="transition-modal-title">Incorrect answer!</H1>
                         <ModalContainer questions>
                             <div id="transition-modal-description">
                                 <p>Correct answer : {props.correct_answer} </p>
