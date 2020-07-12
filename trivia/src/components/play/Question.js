@@ -19,13 +19,13 @@ class Question extends React.Component {
     componentDidMount = () => {
         this._isMounted = true;
         //concat incorrect answers with the correct one and randomize the array 
-        let random = this.props.incorrect_answers.concat(this.props.correct_answer).sort(() => Math.random() - 0.5)
+        let random = this.props.incorrect_answers.concat(this.props.correct_answer).sort(() => Math.random() - 0.5).map(el => el.replace(/&#039;/g, "'").replace(/&quot;/g, '"'))
         this.setState({ options: random })
     }
 
     userAnswer = (e) => {
         //if the answer is correct increments the state.points in the Questions component
-        return e.target.innerText === this.props.correct_answer && this.props.incrementPoints(10)
+        return e.target.innerText === this.props.correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"') && this.props.incrementPoints(10)
 
     }
     handleClick = (e) => this.setState({ clicked: e.target.innerText, open: true })
@@ -38,6 +38,7 @@ class Question extends React.Component {
     }
 
     render() {
+
         return (
             <div>
                 {
@@ -45,12 +46,12 @@ class Question extends React.Component {
                         this.props.index === this.props.questionNumber && (<Ques>
                             <div>
                                 <QuestionQ>
-                                    {this.props.question}
+                                    {this.props.question.replace(/&#039;/g, "'").replace(/&quot;/g, '"')}
                                 </QuestionQ>
                                 <DownContainer>
                                     {this.state.options.map((el, index) =>   //options
                                         <Tilt className="Tilt" options={{ max: 5 }} key={index} >
-                                            <Option key={index} onClick={(e) => { this.userAnswer(e); this.handleClick(e) }} click={this.state.clicked === el ? el : ""} correct_answer={this.props.correct_answer}>{el}</Option></Tilt>)}
+                                            <Option key={index} onClick={(e) => { this.userAnswer(e); this.handleClick(e) }} click={this.state.clicked === el ? el : ""} correct_answer={this.props.correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"')}>{el}</Option></Tilt>)}
                                     <Tilt className="Tilt" options={{ max: 5 }}  >
                                         <ButtonStart onClick={this.props.endPage}>Next</ButtonStart>
                                     </Tilt>
@@ -61,12 +62,12 @@ class Question extends React.Component {
                         this.props.index === this.props.questionNumber && (<Ques>
                             <div>
                                 <QuestionQ>
-                                    {this.props.question}
+                                    {this.props.question.replace(/&#039;/g, "'").replace(/&quot;/g, '"')}
                                 </QuestionQ>
                                 <DownContainer>
                                     {this.state.options.map((el, index) =>   //options
                                         <Tilt className="Tilt" options={{ max: 5 }} key={index} >
-                                            <Option key={index} onClick={(e) => { this.userAnswer(e); this.handleClick(e) }} click={this.state.clicked === el ? el : ""} correct_answer={this.props.correct_answer}>{el}</Option></Tilt>)}
+                                            <Option key={index} onClick={(e) => { this.userAnswer(e); this.handleClick(e) }} click={this.state.clicked === el ? el : ""} correct_answer={this.props.correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"')}>{el}</Option></Tilt>)}
                                     <Tilt className="Tilt" options={{ max: 5 }}  >
                                         <ButtonStart className="button" onClick={this.props.handleNext}>Next</ButtonStart>
                                     </Tilt>
@@ -74,7 +75,7 @@ class Question extends React.Component {
                             </div>
                         </Ques>)
                 }
-                <Modal handleClose={this.handleCloseQ} open={this.state.open} choice="results" correct_answer={this.props.correct_answer} clickedAns={this.state.clicked} />
+                <Modal handleClose={this.handleCloseQ} open={this.state.open} choice="results" correct_answer={this.props.correct_answer.replace(/&#039;/g, "'").replace(/&quot;/g, '"')} clickedAns={this.state.clicked} />
 
             </div>
 
